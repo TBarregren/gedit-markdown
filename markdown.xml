@@ -1,0 +1,233 @@
+<?xml version='1.0' encoding='utf-8'?>
+<snippets language="markdown">
+  <snippet>
+    <tag>h2</tag>
+    <text><![CDATA[## ${1:Header} ##
+
+]]></text>
+    <description>Header 2 (atx-style)</description>
+    <accelerator><![CDATA[<Primary><Alt>2]]></accelerator>
+  </snippet>
+  <snippet>
+    <tag>h3</tag>
+    <text><![CDATA[### ${1:Header} ###
+
+]]></text>
+    <description>Header 3 (atx-style)</description>
+    <accelerator><![CDATA[<Primary><Alt>3]]></accelerator>
+  </snippet>
+  <snippet>
+    <tag>h4</tag>
+    <text><![CDATA[#### ${1:Header} ####
+
+]]></text>
+    <description>Header 4 (atx-style)</description>
+    <accelerator><![CDATA[<Primary><Alt>4]]></accelerator>
+  </snippet>
+  <snippet>
+    <tag>h5</tag>
+    <text><![CDATA[##### ${1:Header} #####
+
+]]></text>
+    <description>Header 5 (atx-style)</description>
+    <accelerator><![CDATA[<Primary><Alt>5]]></accelerator>
+  </snippet>
+  <snippet>
+    <tag>h6</tag>
+    <text><![CDATA[###### ${1:Header} ######
+
+]]></text>
+    <description>Header 6 (atx-style)</description>
+    <accelerator><![CDATA[<Primary><Alt>6]]></accelerator>
+  </snippet>
+  <snippet>
+    <text><![CDATA[**${1:$GEDIT_SELECTED_TEXT}**]]></text>
+    <description>Emphasis (bold)</description>
+    <accelerator><![CDATA[<Primary>b]]></accelerator>
+  </snippet>
+  <snippet>
+    <text><![CDATA[*${1:$GEDIT_SELECTED_TEXT}*]]></text>
+    <description>Emphasis (italic)</description>
+    <accelerator><![CDATA[<Primary>i]]></accelerator>
+  </snippet>
+  <snippet override="markdown-ordered-list">
+    <tag>ol</tag>
+    <text><![CDATA[1. $0
+2. 
+3. 
+
+]]></text>
+    <description>Ordered List</description>
+  </snippet>
+  <snippet override="markdown-unordered-list">
+    <tag>ul</tag>
+    <text><![CDATA[* $0
+* 
+* 
+
+]]></text>
+    <description>Unordered List</description>
+  </snippet>
+  <snippet>
+    <text><![CDATA[$<
+out = ""
+lines = $GEDIT_SELECTED_TEXT.splitlines();
+for line in lines:
+	out += "* " + line + "\n"
+return out
+>]]></text>
+    <description>Unordered list</description>
+    <accelerator><![CDATA[<Primary><Alt>u]]></accelerator>
+  </snippet>
+  <snippet>
+    <text><![CDATA[$<
+out = ""
+lines = $GEDIT_SELECTED_TEXT.splitlines();
+for i, line in enumerate(lines, 1):
+	out += str(i) + ". " + line + "\n"
+return out
+>]]></text>
+    <description>Ordered List</description>
+    <accelerator><![CDATA[<Primary><Alt>o]]></accelerator>
+  </snippet>
+  <snippet>
+    <text><![CDATA[$<
+out = ""
+table = [row.split("\t") for row in $GEDIT_SELECTED_TEXT.splitlines()]
+if not table: return ""
+nr_cols = len(table[0])
+min_width = 80 / min(nr_cols, 12)
+width = len(max([item for sublist in table for item in sublist], key=len))
+width = min(width, min_width)
+cell_format = "{:<" + str(width) + "}"
+out_table = []
+for row in table:
+	out_row = []
+	for cell in row:
+		out_row.append(cell_format.format(cell))
+	out_table.append(" | ".join(out_row))
+out_table.insert(1, " | ".join(['-' * width] * nr_cols))
+return "\n".join(out_table)
+>]]></text>
+    <description>Table</description>
+    <accelerator><![CDATA[<Primary><Shift>t]]></accelerator>
+  </snippet>
+  <snippet>
+    <tag>table</tag>
+    <text><![CDATA[$0      |       |      
+----- | ----- | -----
+      |       |      
+      |       |      
+      |       |      
+]]></text>
+    <description>Table</description>
+  </snippet>
+  <snippet>
+    <tag>dl</tag>
+    <text><![CDATA[${1:Term}
+:   ${2:Definition}
+
+Term$0
+:   Definition
+
+Term
+:   Definition]]></text>
+    <description>Definition list</description>
+  </snippet>
+  <snippet>
+    <text><![CDATA[$<
+import re
+
+regex = r'^([^:]+)\s*:\s*(.*)$'
+subst = r'\1\n:   \2\n'
+
+out = re.compile(regex, flags = re.U + re.M).sub(subst, $GEDIT_SELECTED_TEXT)
+
+out = out[:-1] # Remove the last newline
+
+return out
+>]]></text>
+    <description>Definition list</description>
+    <accelerator><![CDATA[<Primary><Shift>d]]></accelerator>
+  </snippet>
+  <snippet>
+    <description>Link (inline)</description>
+    <tag>a</tag>
+    <text><![CDATA[[${1:LINK TEXT}](${2:LINK URL})]]></text>
+  </snippet>
+  <snippet override="markdown-inline-link">
+    <description>Link (inline)</description>
+    <accelerator><![CDATA[<Primary>k]]></accelerator>
+    <text><![CDATA[[$GEDIT_SELECTED_TEXT]($0)]]></text>
+  </snippet>
+  <snippet>
+    <description>Header 1 (atx-style)</description>
+    <tag>h1</tag>
+    <text><![CDATA[# ${1:Header} #
+
+]]></text>
+    <accelerator><![CDATA[<Primary><Alt>1]]></accelerator>
+  </snippet>
+  <snippet override="markdown-horizontal-rule">
+    <tag>hr</tag>
+    <description>Horizontal Rule</description>
+    <text><![CDATA[--------------------
+
+$0]]></text>
+  </snippet>
+  <snippet override="markdown-inline-image">
+    <tag>img</tag>
+    <description>Image (inline)</description>
+    <text><![CDATA[![${1:ALT TEXT}](${2:URL})]]></text>
+  </snippet>
+  <snippet override="markdown-code-span">
+    <description>Code</description>
+    <accelerator><![CDATA[<Primary><Alt>c]]></accelerator>
+    <text><![CDATA[\`${1:$GEDIT_SELECTED_TEXT}\`]]></text>
+  </snippet>
+  <snippet override="markdown-reference-link">
+    <tag>aref</tag>
+    <description>Link (ref-style)</description>
+    <text><![CDATA[[${1:LINK TEXT}][${2:LINK LABEL}]]]></text>
+  </snippet>
+  <snippet>
+    <description>LInk (ref-style)</description>
+    <accelerator><![CDATA[<Primary><Alt>k]]></accelerator>
+    <text><![CDATA[[$GEDIT_SELECTED_TEXT][$0]]]></text>
+  </snippet>
+  <snippet>
+    <description>Image (inline)</description>
+    <accelerator><![CDATA[<Primary>j]]></accelerator>
+    <text><![CDATA[![$GEDIT_SELECTED_TEXT]($0)]]></text>
+  </snippet>
+  <snippet override="markdown-reference-image">
+    <tag>iref</tag>
+    <description>Image (ref-style)</description>
+    <text><![CDATA[![${1:ALT TEXT}][${2:IMAGE LABEL}]]]></text>
+  </snippet>
+  <snippet override="markdown-link-definition">
+    <tag>adef</tag>
+    <description>Link (ref-style, definition)</description>
+    <text><![CDATA[[${1:link label}]: ${2:URL}
+]]></text>
+  </snippet>
+  <snippet>
+    <description>Image (ref-style)</description>
+    <accelerator><![CDATA[<Primary><Alt>j]]></accelerator>
+    <text><![CDATA[![$GEDIT_SELECTED_TEXT][$0]]]></text>
+  </snippet>
+  <snippet>
+    <tag>idef</tag>
+    <description>Image (ref-style, definition)</description>
+    <text><![CDATA[![${1:ALT TEXT}][${2:IMAGE LABEL}]]]></text>
+  </snippet>
+  <snippet>
+    <description>Footnote</description>
+    <accelerator><![CDATA[<Primary><Alt>f]]></accelerator>
+    <text><![CDATA[[^${1:LABEL}]
+
+[^$1]: ${2:FOOTNOTE TEXT}
+
+]]></text>
+  </snippet>
+</snippets>

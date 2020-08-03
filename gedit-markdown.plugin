@@ -1,0 +1,9 @@
+[Plugin]
+Loader=python3
+Module=gedit-markdown
+IAge=3
+Name=Markdown for Gedit
+Description=Previews Markdown text as webpage or HTML-code.
+Authors=Thomas Barregren <thomas@barregren.se>
+Copyright=© 2015 Thomas Barregren <thomas@barregren.se>
+Website=http://www.barregren.se/
